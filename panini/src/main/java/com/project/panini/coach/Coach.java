@@ -1,5 +1,6 @@
 package com.project.panini.coach;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.panini.team.Team;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,5 +24,6 @@ public class Coach {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
+    @JsonIgnore
     private Team team;
 }

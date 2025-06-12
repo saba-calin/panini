@@ -12,6 +12,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -31,7 +32,6 @@ public class DataInserterConfig implements CommandLineRunner {
     }
 
     private void insertRosters() {
-        this.teamRepository.findById((long) 1).orElseThrow();
         long playerCount = this.playerRepository.count();
         if (playerCount != 480) {
             insertTeams();
@@ -47,7 +47,7 @@ public class DataInserterConfig implements CommandLineRunner {
     }
 
     private void insertCoaches() {
-        byte[] photo = loadPhoto("./photos/coach_photo");
+        byte[] photo = loadPhoto("./photos/coach_photo.jpg");
 
         for (int i = 1; i <= 24; i++) {
             String name = this.faker.name().fullName();
@@ -64,7 +64,7 @@ public class DataInserterConfig implements CommandLineRunner {
     }
 
     private void insertPlayers() {
-        byte[] photo = loadPhoto("./photos/player_photo");
+        byte[] photo = loadPhoto("./photos/player_photo.jpg");
 
         for (int i = 1; i <= 24; i++) {
             Team team = this.teamRepository.findById((long) i).orElseThrow();
@@ -97,7 +97,7 @@ public class DataInserterConfig implements CommandLineRunner {
 
     private byte[] loadPhoto(String path) {
         try {
-            InputStream inputStream = getClass().getResourceAsStream(path);
+            InputStream inputStream = new FileInputStream(path);
             return StreamUtils.copyToByteArray(inputStream);
         } catch (Exception e) {
             System.out.println(e.getMessage());
