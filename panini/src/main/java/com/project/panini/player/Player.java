@@ -1,0 +1,42 @@
+package com.project.panini.player;
+
+import com.project.panini.team.Team;
+import jakarta.persistence.*;
+import lombok.*;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Entity(name = "players")
+public class Player {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    @Column(name = "shirt_number")
+    private int shirtNumber;
+
+    private float height;
+
+    private float weight;
+
+    private String position;
+
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
+    @Column(name = "is_titular")
+    private boolean isTitular;
+
+    @Lob
+    private byte[] photo;
+
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
+}
