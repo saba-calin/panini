@@ -1,8 +1,8 @@
 package com.project.panini.auth.service;
 
 import com.project.panini.auth.model.AuthResponse;
-import com.project.panini.auth.model.UserLoginDto;
-import com.project.panini.auth.model.UserRegistrationDto;
+import com.project.panini.auth.model.UserLoginRequest;
+import com.project.panini.auth.model.UserRegistrationRequest;
 import com.project.panini.exception.UsernameAlreadyExistsException;
 import com.project.panini.user.Role;
 import com.project.panini.user.User;
@@ -24,7 +24,7 @@ public class AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthResponse register(UserRegistrationDto request) {
+    public AuthResponse register(UserRegistrationRequest request) {
         checkIfUserExists(request.getUsername());
 
         User user = User.builder()
@@ -41,7 +41,7 @@ public class AuthService {
         return new AuthResponse(token);
     }
 
-    public AuthResponse authenticate(UserLoginDto request) {
+    public AuthResponse authenticate(UserLoginRequest request) {
         this.authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
         );

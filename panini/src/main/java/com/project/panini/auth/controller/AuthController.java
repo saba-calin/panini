@@ -1,10 +1,9 @@
 package com.project.panini.auth.controller;
 
 import com.project.panini.auth.model.AuthResponse;
-import com.project.panini.auth.model.UserLoginDto;
-import com.project.panini.auth.model.UserRegistrationDto;
+import com.project.panini.auth.model.UserLoginRequest;
+import com.project.panini.auth.model.UserRegistrationRequest;
 import com.project.panini.auth.service.AuthService;
-import com.project.panini.user.User;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,12 +21,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody @Valid UserRegistrationDto request) {
+    public ResponseEntity<AuthResponse> register(@RequestBody @Valid UserRegistrationRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.authService.register(request));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody @Valid UserLoginDto request) {
+    public ResponseEntity<AuthResponse> login(@RequestBody @Valid UserLoginRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(this.authService.authenticate(request));
     }
 }
