@@ -1,5 +1,6 @@
 package com.project.panini.player;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.panini.team.Team;
 import jakarta.persistence.*;
 import lombok.*;
@@ -36,7 +37,8 @@ public class Player {
     @Lob
     private byte[] photo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
+    @JsonIgnore
     private Team team;
 }

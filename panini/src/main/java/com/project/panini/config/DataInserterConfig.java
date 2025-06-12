@@ -15,6 +15,7 @@ import org.springframework.util.StreamUtils;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 
 @Component
 @AllArgsConstructor
@@ -65,6 +66,7 @@ public class DataInserterConfig implements CommandLineRunner {
 
     private void insertPlayers() {
         byte[] photo = loadPhoto("./photos/player_photo.jpg");
+        System.out.println(Arrays.toString(photo));
 
         for (int i = 1; i <= 24; i++) {
             Team team = this.teamRepository.findById((long) i).orElseThrow();
