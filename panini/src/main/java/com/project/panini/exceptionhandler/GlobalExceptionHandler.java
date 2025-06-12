@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<Map<String, String>> handleUsernameAlreadyExistsException(BadCredentialsException e) {
+    public ResponseEntity<Map<String, String>> handleBadCredentialsException(BadCredentialsException e) {
         Map<String, String> map = new HashMap<>();
         map.put("error", e.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
