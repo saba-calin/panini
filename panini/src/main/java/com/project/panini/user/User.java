@@ -1,5 +1,6 @@
 package com.project.panini.user;
 
+import com.project.panini.userplayer.UserPlayer;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -34,6 +35,9 @@ public class User implements UserDetails {
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserPlayer> userPlayers;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

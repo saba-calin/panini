@@ -2,8 +2,11 @@ package com.project.panini.player;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.panini.team.Team;
+import com.project.panini.userplayer.UserPlayer;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -41,4 +44,7 @@ public class Player {
     @JoinColumn(name = "team_id")
     @JsonIgnore
     private Team team;
+
+    @OneToMany(mappedBy = "player")
+    private List<UserPlayer> userPlayers;
 }
