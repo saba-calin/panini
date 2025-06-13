@@ -1,4 +1,4 @@
-package com.project.panini.player;
+package com.project.panini.player.dto;
 
 import lombok.*;
 

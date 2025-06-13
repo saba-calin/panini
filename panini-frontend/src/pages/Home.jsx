@@ -40,12 +40,13 @@ const Home = () => {
 
     const fetchPlayers = async () => {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`${serverUrl}/player?team_id=${currentTeam}`, {
+        const response = await axios.get(`${serverUrl}/team?team_id=${currentTeam}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
         setPlayers(response.data);
+        console.log(response.data);
     }
 
     if (!coach || !players) {
@@ -81,8 +82,12 @@ const Home = () => {
                     <div className="row py-4">
                         {players.slice(0, 10).map((player, index) => (
                             <div className="col-sm" key={index}>
-                                <div className="card" style={{width: "150px"}}>
-                                    <img className="card-img-top" src={`data:image/jpg;base64,${player.photo}`} alt="Card image cap"/>
+                                <div className={`card ${player.titular ? 'bg-warning' : 'bg-dark-subtle'}`} style={{width: "150px"}}>
+                                    {player.unlocked ? (
+                                        <img className="card-img-top" src={`data:image/jpg;base64,${player.photo}`} alt="Card image cap"/>
+                                    ) : (
+                                        <div className="card-img-top" style={{height: "150px"}} />
+                                    )}
                                     <div className="card-body d-flex justify-content-center">
                                         <p className="card-text">{player.name} ({player.shirtNumber})</p>
                                     </div>
@@ -94,8 +99,12 @@ const Home = () => {
                     <div className="row py-4">
                         {players.slice(10, 20).map((player, index) => (
                             <div className="col-sm" key={index}>
-                                <div className="card" style={{width: "150px"}}>
-                                    <img className="card-img-top" src={`data:image/jpg;base64,${player.photo}`} alt="Card image cap"/>
+                                <div className={`card ${player.titular ? 'bg-warning' : 'bg-dark-subtle'}`} style={{width: "150px"}}>
+                                    {player.unlocked ? (
+                                        <img className="card-img-top" src={`data:image/jpg;base64,${player.photo}`} alt="Card image cap"/>
+                                    ) : (
+                                        <div className="card-img-top" style={{height: "150px"}} />
+                                    )}
                                     <div className="card-body d-flex justify-content-center">
                                         <p className="card-text">{player.name} ({player.shirtNumber})</p>
                                     </div>

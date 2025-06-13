@@ -30,8 +30,8 @@ const BuyPack = () => {
                 </div>
 
                 <div className="row py-4">
-                    {players.map(player => (
-                        <div className="col-sm" key={player.id}>
+                    {players.map((player, index) => (
+                        <div className="col-sm" key={index}>
                             <div className="card" style={{width: "150px"}}>
                                 <img className="card-img-top" src={`data:image/jpg;base64,${player.photo}`} alt="Card image cap"/>
                                 <div className="card-body d-flex justify-content-center">

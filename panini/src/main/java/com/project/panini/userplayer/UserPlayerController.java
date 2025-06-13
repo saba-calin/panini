@@ -1,6 +1,6 @@
 package com.project.panini.userplayer;
 
-import com.project.panini.player.PlayerDto;
+import com.project.panini.player.dto.PlayerDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

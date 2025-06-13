@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface PlayerRepository extends JpaRepository<Player, Long> {
 
-    @Query("SELECT p FROM players p WHERE p.team.id = :teamId")
+    @Query("SELECT p FROM players p WHERE p.team.id = :teamId ORDER BY p.id ASC")
     List<Player> findPlayersByTeamId(@Param("teamId") Long id);
 }

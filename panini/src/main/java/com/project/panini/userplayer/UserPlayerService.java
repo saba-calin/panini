@@ -1,9 +1,8 @@
 package com.project.panini.userplayer;
 
-import com.github.javafaker.Faker;
 import com.project.panini.player.Player;
-import com.project.panini.player.PlayerDto;
 import com.project.panini.player.PlayerRepository;
+import com.project.panini.player.dto.PlayerDto;
 import com.project.panini.user.User;
 import com.project.panini.util.UserContextService;
 import jakarta.transaction.Transactional;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 @AllArgsConstructor
@@ -22,7 +22,7 @@ public class UserPlayerService {
 
     private final UserContextService userContextService;
 
-    private final Faker faker = new Faker();
+    private final Random random = new Random();
 
     public List<PlayerDto> generatePlayers() {
         List<PlayerDto> list = new ArrayList<>();
@@ -30,7 +30,7 @@ public class UserPlayerService {
 
         for (int i = 1; i <= 7; i++) {
             // generate the player id
-            long playerId = this.faker.number().numberBetween(1, 481);
+            long playerId = 1 + this.random.nextInt(480);
             Player player = this.playerRepository.findById(playerId).orElseThrow(() -> new IllegalStateException("Player not found"));
 
             // save the user_player in the database

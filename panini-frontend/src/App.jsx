@@ -5,6 +5,7 @@ import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
 import BuyPack from "./pages/BuyPack.jsx";
 import Doubles from "./pages/Doubles.jsx";
+import ClaimPrize from "./pages/ClaimPrize.jsx";
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
             <Route path="/register" element={<Register /> } />
             <Route path="/buy-pack" element={<BuyPack /> } />
             <Route path="/doubles" element={<Doubles /> } />
+            <Route path="/claim-prize" element={<ClaimPrize /> } />
         </Routes>
     </BrowserRouter>
   );
