@@ -6,17 +6,26 @@ const Home = () => {
     const [coach, setCoach] = useState();
     useEffect(() => {
         const fetchCoach = async () => {
-            const response = await axios.get("http://localhost:8080/api/v1/coach?id=1");
+            const token = localStorage.getItem("token");
+            const response = await axios.get("http://localhost:8080/api/v1/coach?id=1", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             setCoach(response.data);
-            console.log(response.data);
         }
         fetchCoach();
     }, []);
 
-    const [players, setPlayers] = useState();
+    const [players, setPlayers] = useState([]);
     useEffect(() => {
         const fetchPlayers = async () => {
-            const response = await axios.get("http://localhost:8080/api/v1/player?team_id=1");
+            const token = localStorage.getItem("token");
+            const response = await axios.get("http://localhost:8080/api/v1/player?team_id=1", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             setPlayers(response.data);
             console.log(response.data);
         }
@@ -52,7 +61,7 @@ const Home = () => {
                                 <div className="card" style={{width: "150px"}}>
                                     <img className="card-img-top" src={`data:image/jpg;base64,${player.photo}`} alt="Card image cap"/>
                                     <div className="card-body d-flex justify-content-center">
-                                        <p className="card-text">{player.name}</p>
+                                        <p className="card-text">{player.name} ({player.shirtNumber})</p>
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +74,7 @@ const Home = () => {
                                 <div className="card" style={{width: "150px"}}>
                                     <img className="card-img-top" src={`data:image/jpg;base64,${player.photo}`} alt="Card image cap"/>
                                     <div className="card-body d-flex justify-content-center">
-                                        <p className="card-text">{player.name}</p>
+                                        <p className="card-text">{player.name} ({player.shirtNumber})</p>
                                     </div>
                                 </div>
                             </div>

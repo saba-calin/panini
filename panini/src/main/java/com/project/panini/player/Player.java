@@ -46,5 +46,6 @@ public class Player {
     private Team team;
 
     @OneToMany(mappedBy = "player")
+    @JsonIgnore
     private List<UserPlayer> userPlayers;
 }

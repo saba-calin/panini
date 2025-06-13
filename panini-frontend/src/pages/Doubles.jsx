@@ -30,7 +30,7 @@ const Doubles = () => {
                             <div className="card" style={{width: "150px"}}>
                                 <img className="card-img-top" src={`data:image/jpg;base64,${player.photo}`} alt="Card image cap"/>
                                 <div className="card-body d-flex justify-content-center">
-                                    <p className="card-text">{player.name}</p>
+                                    <p className="card-text">{player.name} ({player.shirtNumber})</p>
                                 </div>
                             </div>
                         </div>

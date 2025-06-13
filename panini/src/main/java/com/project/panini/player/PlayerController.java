@@ -1,6 +1,8 @@
 package com.project.panini.player;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +15,7 @@ public class PlayerController {
     private final PlayerService playerService;
 
     @GetMapping
-    public List<Player> getPlayersByTeamId(@RequestParam("team_id") long id) {
-        return this.playerService.getPlayersByTeamId(id);
+    public ResponseEntity<List<Player>> getPlayersByTeamId(@RequestParam("team_id") long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.playerService.getPlayersByTeamId(id));
     }
 }
