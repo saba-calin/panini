@@ -6,6 +6,7 @@ import com.project.panini.player.PlayerDto;
 import com.project.panini.player.PlayerRepository;
 import com.project.panini.user.User;
 import com.project.panini.util.UserContextService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -50,5 +51,11 @@ public class UserPlayerService {
         }
 
         return list;
+    }
+
+    @Transactional
+    public List<PlayerDto> getDoubles() {
+        long userId = this.userContextService.getUserId();
+        return this.userPlayerRepository.getDoubles(userId);
     }
 }
