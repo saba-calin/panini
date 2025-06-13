@@ -16,4 +16,8 @@ public class PlayerService {
     public List<Player> getPlayersByTeamId(long id) {
         return this.playerRepository.findPlayersByTeamId(id);
     }
+
+    public Player getPlayerById(long id) {
+        return this.playerRepository.findById(id).orElseThrow(() -> new IllegalStateException("Player not found"));
+    }
 }

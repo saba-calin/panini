@@ -19,6 +19,21 @@ const Home = () => {
         }
     }
 
+    const [player, setPlayer] = useState(null);
+    const handleClick = (id) => {
+        const fetchPlayer = async () => {
+            const token = localStorage.getItem("token");
+            const response = await axios.get(`${serverUrl}/player/by-id?id=${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            setPlayer(response.data);
+            console.log(response.data);
+        }
+        fetchPlayer();
+    }
+
     const [currentTeam, setCurrentTeam] = useState(1);
     useEffect(() => {
         fetchCoach();
@@ -80,7 +95,7 @@ const Home = () => {
                 <div className="container-fluid">
                     <div className="row py-4">
                         {players.slice(0, 10).map((player, index) => (
-                            <div className="col-sm" key={index}>
+                            <div className="col-sm" key={index} onClick={() => handleClick(player.id)}>
                                 <div className={`card ${player.titular ? 'bg-warning' : 'bg-dark-subtle'}`} style={{width: "150px"}}>
                                     {player.unlocked ? (
                                         <img className="card-img-top" src={`data:image/jpg;base64,${player.photo}`} alt="Card image cap"/>
@@ -97,7 +112,7 @@ const Home = () => {
 
                     <div className="row py-4">
                         {players.slice(10, 20).map((player, index) => (
-                            <div className="col-sm" key={index}>
+                            <div className="col-sm" key={index} onClick={() => handleClick(player.id)}>
                                 <div className={`card ${player.titular ? 'bg-warning' : 'bg-dark-subtle'}`} style={{width: "150px"}}>
                                     {player.unlocked ? (
                                         <img className="card-img-top" src={`data:image/jpg;base64,${player.photo}`} alt="Card image cap"/>
@@ -112,6 +127,23 @@ const Home = () => {
                         ))}
                     </div>
                 </div>
+
+                {player === null ? null : (
+                    <div className="py-4 d-flex justify-content-center">
+                        <div className="card" style={{width: "18rem"}}>
+                            <img src={`data:image/jpg;base64,${player.photo}`} className="card-img-top" alt="..."/>
+                            <div className="card-body">
+                                <h5 className="card-title">{player.name}</h5>
+                                <p className="card-text">Shirt Number: {player.shirtNumber}</p>
+                                <p className="card-text">Height: {player.height}</p>
+                                <p className="card-text">Weight: {player.weight}</p>
+                                <p className="card-text">Position: {player.position}</p>
+                                <p className="card-text">Is Titular: {player.titular ? "yes" : "no"}</p>
+                                <p className="card-text">Description: {player.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
             </Fragment>
         );

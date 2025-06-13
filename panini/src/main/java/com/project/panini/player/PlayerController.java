@@ -18,4 +18,9 @@ public class PlayerController {
     public ResponseEntity<List<Player>> getPlayersByTeamId(@RequestParam("team_id") long id) {
         return ResponseEntity.status(HttpStatus.OK).body(this.playerService.getPlayersByTeamId(id));
     }
+
+    @GetMapping("/by-id")
+    public ResponseEntity<Player> getPlayerById(@RequestParam("id") long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.playerService.getPlayerById(id));
+    }
 }
