@@ -4,6 +4,7 @@ import com.project.panini.player.dto.PlayerDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,4 +30,11 @@ public interface UserPlayerRepository extends JpaRepository<UserPlayer, Long> {
         WHERE t.id = :teamId AND up.user.id = :userId
     """)
     List<Long> getUnlockedPlayerIdsForTeam(@Param("userId") Long userId, @Param("teamId") Long teamId);
+
+    @Query("""
+        SELECT COUNT(DISTINCT up.player.id)
+        FROM user_player up
+        WHERE up.user.id = :userId
+    """)
+    int getNumberOfUnlockedPlayers(@Param("userId") Long userId);
 }

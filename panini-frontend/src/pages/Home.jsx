@@ -46,7 +46,6 @@ const Home = () => {
             }
         });
         setPlayers(response.data);
-        console.log(response.data);
     }
 
     if (!coach || !players) {

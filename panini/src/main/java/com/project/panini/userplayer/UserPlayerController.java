@@ -27,4 +27,9 @@ public class UserPlayerController {
     public ResponseEntity<List<PlayerDto>> getDoubles() {
         return ResponseEntity.status(HttpStatus.OK).body(this.userPlayerService.getDoubles());
     }
+
+    @GetMapping("/claim-prize")
+    public ResponseEntity<Boolean> isAllowedToClaimPrize() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.userPlayerService.isAllowedToClaimPrize());
+    }
 }

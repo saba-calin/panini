@@ -58,4 +58,9 @@ public class UserPlayerService {
         long userId = this.userContextService.getUserId();
         return this.userPlayerRepository.getDoubles(userId);
     }
+
+    public boolean isAllowedToClaimPrize() {
+        long userId = this.userContextService.getUserId();
+        return this.userPlayerRepository.getNumberOfUnlockedPlayers(userId) == this.playerRepository.count();
+    }
 }
