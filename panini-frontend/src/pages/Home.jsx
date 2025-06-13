@@ -25,7 +25,11 @@ const Home = () => {
 
     if (!coach || !players) {
         return (
-            <div>Loading...</div>
+            <Fragment>
+                <HomeNavbar />
+
+                <div>Loading...</div>
+            </Fragment>
         );
     } else {
         return (
