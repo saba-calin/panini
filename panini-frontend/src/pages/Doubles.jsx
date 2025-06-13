@@ -1,36 +1,31 @@
-import {Fragment, useState} from "react";
+import {Fragment, useEffect, useState} from "react";
 import BackToHomeNavbar from "../layout/BackToHomeNavbar.jsx";
 import axios from "axios";
 import {serverUrl} from "../../serverUrl.js";
 
-const BuyPack = () => {
+const Doubles = () => {
 
-    const [players, setPlayers] = useState([]);
-
-    const handleBuyPack = () => {
-        const token = localStorage.getItem("token");
-
-        axios.post(`${serverUrl}/user-player/buy-pack`, {} ,{
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        .then(response => {
-            setPlayers(response.data);
-        })
-    }
+    const [doubles, setDoubles] = useState([]);
+    useEffect(() => {
+        const fetchDoubles = async () => {
+            const token = localStorage.getItem("token");
+            const response = await axios.get(`${serverUrl}/user-player/doubles`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            setDoubles(response.data);
+        }
+        fetchDoubles();
+    }, []);
 
     return (
         <Fragment>
             <BackToHomeNavbar />
 
-            <div className="container py-4 d-flex justify-content-center align-content-center flex-column">
-                <div className="d-flex justify-content-center">
-                    <button className="btn btn-success" onClick={handleBuyPack} style={{width: "200px"}}>Buy Pack</button>
-                </div>
-
+            <div className="container">
                 <div className="row py-4">
-                    {players.map(player => (
+                    {doubles.map(player => (
                         <div className="col-sm" key={player.id}>
                             <div className="card" style={{width: "150px"}}>
                                 <img className="card-img-top" src={`data:image/jpg;base64,${player.photo}`} alt="Card image cap"/>
@@ -46,4 +41,4 @@ const BuyPack = () => {
     );
 }
 
-export default BuyPack;
+export default Doubles;

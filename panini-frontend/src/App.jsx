@@ -4,6 +4,7 @@ import Home from "./pages/Home.jsx";
 import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
 import BuyPack from "./pages/BuyPack.jsx";
+import Doubles from "./pages/Doubles.jsx";
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
             <Route path="/login" element={<Login /> } />
             <Route path="/register" element={<Register /> } />
             <Route path="/buy-pack" element={<BuyPack /> } />
+            <Route path="/doubles" element={<Doubles /> } />
         </Routes>
     </BrowserRouter>
   );
