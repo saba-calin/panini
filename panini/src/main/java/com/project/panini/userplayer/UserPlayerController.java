@@ -4,10 +4,7 @@ import com.project.panini.player.dto.PlayerDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,6 +23,11 @@ public class UserPlayerController {
     @GetMapping("/doubles")
     public ResponseEntity<List<PlayerDto>> getDoubles() {
         return ResponseEntity.status(HttpStatus.OK).body(this.userPlayerService.getDoubles());
+    }
+
+    @GetMapping("/doubles/by-username")
+    public ResponseEntity<List<PlayerDto>> getDoublesByUsername(@RequestParam("username") String username) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.userPlayerService.getDoublesByUsername(username));
     }
 
     @GetMapping("/claim-prize")

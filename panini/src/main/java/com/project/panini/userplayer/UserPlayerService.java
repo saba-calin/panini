@@ -4,6 +4,7 @@ import com.project.panini.player.Player;
 import com.project.panini.player.PlayerRepository;
 import com.project.panini.player.dto.PlayerDto;
 import com.project.panini.user.User;
+import com.project.panini.user.UserRepository;
 import com.project.panini.util.UserContextService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ public class UserPlayerService {
 
     private final UserPlayerRepository userPlayerRepository;
     private final PlayerRepository playerRepository;
+    private final UserRepository userRepository;
 
     private final UserContextService userContextService;
 
@@ -57,6 +59,12 @@ public class UserPlayerService {
     public List<PlayerDto> getDoubles() {
         long userId = this.userContextService.getUserId();
         return this.userPlayerRepository.getDoubles(userId);
+    }
+
+    @Transactional
+    public List<PlayerDto> getDoublesByUsername(String username) {
+        User user = this.userRepository.findByUsername(username).orElseThrow(() -> new IllegalStateException("User not found"));
+        return this.userPlayerRepository.getDoubles(user.getId());
     }
 
     public boolean isAllowedToClaimPrize() {
