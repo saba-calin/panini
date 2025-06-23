@@ -1,5 +1,6 @@
 package com.project.panini.user;
 
+import com.project.panini.trade.Trade;
 import com.project.panini.userplayer.UserPlayer;
 import jakarta.persistence.*;
 import lombok.*;
@@ -38,6 +39,12 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<UserPlayer> userPlayers;
+
+    @OneToMany(mappedBy = "proposer")
+    private List<Trade> proposerTrades;
+
+    @OneToMany(mappedBy = "receiver")
+    private List<Trade> receiverTrades;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

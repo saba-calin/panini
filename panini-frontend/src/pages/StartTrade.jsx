@@ -80,12 +80,31 @@ const StartTrade = () => {
         setUsernames(response.data);
     }
 
+    const handleTrade = () => {
+        const proposerTradeIds = proposerTradeDoubles.map(player => player.id);
+        const receiverTradeIds = receiverTradeDoubles.map(player => player.id);
+
+        const trade = {
+            proposerTradeIds: proposerTradeIds,
+            receiverTradeIds: receiverTradeIds,
+            receiver: currentUsername
+        };
+        console.log(trade);
+
+        const token = localStorage.getItem("token");
+        axios.post(`${serverUrl}/trade/make-trade`, trade, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+    }
+
     return (
         <Fragment>
             <BackToHomeNavbar />
 
             <div className="container d-flex flex-column py-4 align-items-center">
-                <button className="btn btn-success">Make Offer</button>
+                <button className="btn btn-success" onClick={handleTrade}>Make Offer</button>
 
                 <div className="dropdown py-4">
                     <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
