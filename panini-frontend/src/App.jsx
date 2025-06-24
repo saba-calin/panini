@@ -10,6 +10,7 @@ import ClaimPrize from "./pages/ClaimPrize.jsx";
 import StartTrade from "./pages/StartTrade.jsx";
 import Trades from "./pages/Trades.jsx";
 import ViewTrade from "./pages/ViewTrade.jsx";
+import Championship from "./pages/Championship.jsx";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/start-trade" element={<StartTrade /> } />
             <Route path="/trades" element={<Trades /> } />
             <Route path="/trades/:id" element={<ViewTrade /> } />
+            <Route path="/championship" element={<Championship /> } />
         </Routes>
     </BrowserRouter>
   );

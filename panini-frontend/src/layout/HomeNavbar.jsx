@@ -7,6 +7,7 @@ const HomeNavbar = () => {
                 <a className="navbar-brand">Panini</a>
                 <div>
                     <Link to={'/claim-prize'} className="btn btn-outline-light" style={{marginRight: "10px"}}>Claim Prize</Link>
+                    <Link to={'/championship'} className="btn btn-outline-light" style={{marginRight: "10px"}}>Championship</Link>
                     <Link to={'/trades'} className="btn btn-outline-light" style={{marginRight: "10px"}}>View Trades</Link>
                     <Link to={'/start-trade'} className="btn btn-outline-light" style={{marginRight: "10px"}}>Start Trade</Link>
                     <Link to={'/doubles'} className="btn btn-outline-light" style={{marginRight: "10px"}}>See Doubles</Link>
