@@ -14,6 +14,8 @@ const StartTrade = () => {
     const [usernames, setUsernames] = useState([]);
     const [currentUsername, setCurrentUsername] = useState(null);
 
+    const [infoMessage, setInfoMessage] = useState("");
+
     useEffect(() => {
         getProposerDoubles();
         getUsernames();
@@ -96,6 +98,14 @@ const StartTrade = () => {
             headers: {
                 Authorization: `Bearer ${token}`
             }
+        })
+        .then(() => {
+            setInfoMessage("Trade successfully placed");
+            setProposerTradeDoubles([]);
+            setReceiverTradeDoubles([]);
+        })
+        .catch(error => {
+            setInfoMessage(error.response.data.error);
         });
     }
 
@@ -104,11 +114,13 @@ const StartTrade = () => {
             <BackToHomeNavbar />
 
             <div className="container d-flex flex-column py-4 align-items-center">
+                <p className="text-warning">{infoMessage}</p>
+
                 <button className="btn btn-success" onClick={handleTrade}>Make Offer</button>
 
                 <div className="dropdown py-4">
                     <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        {currentUsername === null ? "Select Trading Partner" : currentUsername }
+                        {currentUsername === null ? "Select Trade Partner" : currentUsername }
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         {usernames.map(username => (
@@ -157,7 +169,7 @@ const StartTrade = () => {
                 </div>
 
                 <div className="container d-flex flex-column align-items-center">
-                    <h1 className="text-center">You Get</h1>
+                    <h1 className="text-center">You Receive</h1>
 
                     <div style={{width: "80%", marginTop: "50px"}}>
                         <div className="row py-4">

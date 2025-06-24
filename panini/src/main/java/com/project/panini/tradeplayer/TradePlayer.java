@@ -1,7 +1,7 @@
-package com.project.panini.userplayer;
+package com.project.panini.tradeplayer;
 
 import com.project.panini.player.Player;
-import com.project.panini.user.User;
+import com.project.panini.trade.Trade;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,18 +10,21 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "user_player")
-public class UserPlayer {
+@Entity(name = "trade_player")
+public class TradePlayer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name = "proposer_side")
+    private boolean proposerSide;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "trade_id")
+    private Trade trade;
+
+    @ManyToOne
     @JoinColumn(name = "player_id")
     private Player player;
 }

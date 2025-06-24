@@ -2,6 +2,7 @@ package com.project.panini.player;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.panini.team.Team;
+import com.project.panini.tradeplayer.TradePlayer;
 import com.project.panini.userplayer.UserPlayer;
 import jakarta.persistence.*;
 import lombok.*;
@@ -48,4 +49,8 @@ public class Player {
     @OneToMany(mappedBy = "player")
     @JsonIgnore
     private List<UserPlayer> userPlayers;
+
+    @OneToMany(mappedBy = "player")
+    @JsonIgnore
+    private List<TradePlayer> tradePlayers;
 }

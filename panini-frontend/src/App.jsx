@@ -8,6 +8,8 @@ import BuyPack from "./pages/BuyPack.jsx";
 import Doubles from "./pages/Doubles.jsx";
 import ClaimPrize from "./pages/ClaimPrize.jsx";
 import StartTrade from "./pages/StartTrade.jsx";
+import Trades from "./pages/Trades.jsx";
+import ViewTrade from "./pages/ViewTrade.jsx";
 
 function App() {
 
@@ -21,6 +23,8 @@ function App() {
             <Route path="/doubles" element={<Doubles /> } />
             <Route path="/claim-prize" element={<ClaimPrize /> } />
             <Route path="/start-trade" element={<StartTrade /> } />
+            <Route path="/trades" element={<Trades /> } />
+            <Route path="/trades/:id" element={<ViewTrade /> } />
         </Routes>
     </BrowserRouter>
   );

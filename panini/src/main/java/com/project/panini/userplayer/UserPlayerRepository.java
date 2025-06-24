@@ -1,13 +1,16 @@
 package com.project.panini.userplayer;
 
 import com.project.panini.player.dto.PlayerDto;
+import com.project.panini.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserPlayerRepository extends JpaRepository<UserPlayer, Long> {
@@ -37,4 +40,12 @@ public interface UserPlayerRepository extends JpaRepository<UserPlayer, Long> {
         WHERE up.user.id = :userId
     """)
     int getNumberOfUnlockedPlayers(@Param("userId") Long userId);
+
+    @Query(value = """
+        SELECT *
+        FROM user_player
+        WHERE user_id = :userId AND player_id = :playerId
+        LIMIT 1 
+    """, nativeQuery = true)
+    Optional<UserPlayer> findFirstByUserIdAndPlayerId(@Param("userId") Long userId, @Param("playerId") Long playerId);
 }
