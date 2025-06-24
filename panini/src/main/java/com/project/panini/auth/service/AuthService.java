@@ -7,6 +7,7 @@ import com.project.panini.exception.UsernameAlreadyExistsException;
 import com.project.panini.user.Role;
 import com.project.panini.user.User;
 import com.project.panini.user.UserRepository;
+import com.project.panini.util.UserContextService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +24,8 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+
+    private final UserContextService userContextService;
 
     public AuthResponse register(UserRegistrationRequest request) {
         checkIfUserExists(request.getUsername());
@@ -57,5 +60,9 @@ public class AuthService {
         if (user.isPresent()) {
             throw new UsernameAlreadyExistsException("Username already exists");
         }
+    }
+
+    public String getUsername() {
+        return this.userContextService.getUsername();
     }
 }

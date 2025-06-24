@@ -3,6 +3,9 @@ package com.project.panini.trade;
 import com.project.panini.player.Player;
 import com.project.panini.player.PlayerRepository;
 import com.project.panini.player.dto.PlayerDto;
+import com.project.panini.trade.request.AcceptRequest;
+import com.project.panini.trade.request.DeclineRequest;
+import com.project.panini.trade.request.TradeRequest;
 import com.project.panini.tradeplayer.TradePlayer;
 import com.project.panini.tradeplayer.TradePlayerRepository;
 import com.project.panini.user.User;
@@ -14,7 +17,6 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -95,5 +97,69 @@ public class TradeService {
     @Transactional
     public List<PlayerDto> getReceiverPlayers(long tradeId) {
         return this.tradeRepository.getReceiverPlayers(tradeId);
+    }
+
+    public TradeDto getTradeById(long tradeId) {
+        return this.tradeRepository.getTradeById(tradeId).orElseThrow(() -> new RuntimeException("Trade not found"));
+    }
+
+    @Transactional
+    public void acceptTrade(AcceptRequest request) {
+        long tradeId = request.getId();
+        this.tradeRepository.updateTradeStatus(Status.ACCEPTED, tradeId);
+
+        List<Long> proposerTradeIds = this.tradeRepository.getProposerTradeIds(tradeId);
+        List<Long> receiverTradeIds = this.tradeRepository.getReceiverTradeIds(tradeId);
+        Trade trade = this.tradeRepository.findById(tradeId).orElseThrow(() -> new RuntimeException("Trade not found"));
+        User proposer = this.userRepository.getReferenceById(trade.getProposer().getId());
+        User receiver = this.userRepository.getReferenceById(trade.getReceiver().getId());
+
+        for (Long playerId : proposerTradeIds) {
+            Player player = this.playerRepository.getReferenceById(playerId);
+            UserPlayer userPlayer = UserPlayer.builder()
+                    .user(receiver)
+                    .player(player)
+                    .build();
+            this.userPlayerRepository.save(userPlayer);
+        }
+
+        for (Long playerId : receiverTradeIds) {
+            Player player = this.playerRepository.getReferenceById(playerId);
+            UserPlayer userPlayer = UserPlayer.builder()
+                    .user(proposer)
+                    .player(player)
+                    .build();
+            this.userPlayerRepository.save(userPlayer);
+        }
+    }
+
+    @Transactional
+    public void declineTrade(DeclineRequest request) {
+        long tradeId = request.getId();
+        this.tradeRepository.updateTradeStatus(Status.REJECTED, tradeId);
+
+        List<Long> proposerTradeIds = this.tradeRepository.getProposerTradeIds(tradeId);
+        List<Long> receiverTradeIds = this.tradeRepository.getReceiverTradeIds(tradeId);
+        Trade trade = this.tradeRepository.findById(tradeId).orElseThrow(() -> new RuntimeException("Trade not found"));
+        User proposer = this.userRepository.getReferenceById(trade.getProposer().getId());
+        User receiver = this.userRepository.getReferenceById(trade.getReceiver().getId());
+
+        for (Long playerId : proposerTradeIds) {
+            Player player = this.playerRepository.getReferenceById(playerId);
+            UserPlayer userPlayer = UserPlayer.builder()
+                    .user(proposer)
+                    .player(player)
+                    .build();
+            this.userPlayerRepository.save(userPlayer);
+        }
+
+        for (Long playerId : receiverTradeIds) {
+            Player player = this.playerRepository.getReferenceById(playerId);
+            UserPlayer userPlayer = UserPlayer.builder()
+                    .user(receiver)
+                    .player(player)
+                    .build();
+            this.userPlayerRepository.save(userPlayer);
+        }
     }
 }

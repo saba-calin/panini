@@ -1,4 +1,4 @@
-package com.project.panini.trade;
+package com.project.panini.trade.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
