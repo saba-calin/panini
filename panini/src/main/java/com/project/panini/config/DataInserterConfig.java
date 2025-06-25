@@ -43,7 +43,11 @@ public class DataInserterConfig implements CommandLineRunner {
 
     private void insertTeams() {
         for (int i = 1; i <= 24; i++) {
-            this.teamRepository.save(new Team());
+            String teamName = this.faker.name().firstName();
+            Team team = Team.builder()
+                    .name(teamName)
+                    .build();
+            this.teamRepository.save(team);
         }
     }
 
