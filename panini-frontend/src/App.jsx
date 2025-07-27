@@ -11,6 +11,7 @@ import StartTrade from "./pages/StartTrade.jsx";
 import Trades from "./pages/Trades.jsx";
 import ViewTrade from "./pages/ViewTrade.jsx";
 import Championship from "./pages/Championship.jsx";
+import Showcase from "./showcase/Showcase.jsx";
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
             <Route path="/trades" element={<Trades /> } />
             <Route path="/trades/:id" element={<ViewTrade /> } />
             <Route path="/championship" element={<Championship /> } />
+            <Route path="/showcase" element={<Showcase />} />
         </Routes>
     </BrowserRouter>
   );
